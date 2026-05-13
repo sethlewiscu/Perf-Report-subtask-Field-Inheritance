@@ -116,8 +116,25 @@ for (const field of FIELDS_TO_COPY) {
     continue;
   }
 
+  // For dropdown fields, the GET response returns the orderindex (integer)
+  // but the SET endpoint expects the option UUID (string).
+  // Resolve via type_config.options on the parent field object.
+  let valueToSet = pf.value;
+  if (field.type === "drop_down" && pf.type_config?.options) {
+    const option = pf.type_config.options.find(
+      (o) => o.orderindex === pf.value,
+    );
+    if (option) {
+      valueToSet = option.id;
+    } else {
+      result.fields[field.name] =
+        `skipped_no_option_for_orderindex_${pf.value}`;
+      continue;
+    }
+  }
+
   try {
-    await apiPost(`/task/${taskId}/field/${field.id}`, { value: pf.value });
+    await apiPost(`/task/${taskId}/field/${field.id}`, { value: valueToSet });
     result.fields[field.name] = "ok";
   } catch (e) {
     result.fields[field.name] = e.message;
