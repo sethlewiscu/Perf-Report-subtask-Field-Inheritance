@@ -27,6 +27,11 @@ const FIELDS_TO_COPY = [
     name: "[EE] Assigned",
     type: "users",
   },
+  {
+    id: "1730c02b-432d-454a-9a7b-1962664f7031",
+    name: "Raw MRR",
+    type: "currency",
+  },
 ];
 
 const TAG_TO_COPY = "perf-churn-risk";
