@@ -2,8 +2,10 @@
 // SUBTASK FIELD INHERITANCE - ClickUp → Zapier Code Step
 // ═══════════════════════════════════════════════════════
 
-// ⬇️ TS SVC BOT API TOKEN ⬇️
+// ❌ REMOVE INSIDE ZAP EDITOR
 require("dotenv").config();
+
+// ⬇️ TS SVC BOT API TOKEN ⬇️
 const API_TOKEN = process.env.API_TOKEN;
 
 const BASE_URL = "https://api.clickup-stg.com/api/v2";
@@ -19,6 +21,11 @@ const FIELDS_TO_COPY = [
     id: "050e7134-acaa-4631-831c-9c6e0780ec2b",
     name: "[EE] Critical Bug",
     type: "drop_down",
+  },
+  {
+    id: "f9943ab6-0012-401b-82ef-7dde5a370863",
+    name: "[EE] Assigned",
+    type: "users",
   },
 ];
 
@@ -132,6 +139,18 @@ for (const field of FIELDS_TO_COPY) {
         `skipped_no_option_for_orderindex_${pf.value}`;
       continue;
     }
+  }
+
+  // For People (users) fields, the GET response returns an array of user objects
+  // e.g. [{ id: 123, username: "...", ... }]
+  // but the SET endpoint expects { add: [123, 456], rem: [] }
+  if (field.type === "users" && Array.isArray(pf.value)) {
+    const userIds = pf.value.map((u) => u.id);
+    if (userIds.length === 0) {
+      result.fields[field.name] = "skipped_empty";
+      continue;
+    }
+    valueToSet = { add: userIds, rem: [] };
   }
 
   try {
