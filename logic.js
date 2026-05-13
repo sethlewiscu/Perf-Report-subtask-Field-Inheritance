@@ -2,10 +2,11 @@
 // SUBTASK FIELD INHERITANCE - ClickUp → Zapier Code Step
 // ═══════════════════════════════════════════════════════
 
-// ⬇️ REPLACE WITH YOUR CLICKUP API TOKEN ⬇️
-const API_TOKEN = "pk_YOUR_TOKEN_HERE";
+// ⬇️ TS SVC BOT API TOKEN ⬇️
+require("dotenv").config();
+const API_TOKEN = process.env.API_TOKEN;
 
-const BASE_URL = "https://api.clickup.com/api/v2";
+const BASE_URL = "https://api.clickup-stg.com/api/v2";
 const TARGET_LIST_ID = "980200129712";
 
 const FIELDS_TO_COPY = [

@@ -1,0 +1,24 @@
+{
+  "name": "perf-report-field-mapping",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/sethlewiscu/Perf-Report-subtask-Field-Inheritance#readme",
+  "bugs": {
+    "url": "https://github.com/sethlewiscu/Perf-Report-subtask-Field-Inheritance/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sethlewiscu/Perf-Report-subtask-Field-Inheritance.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "logic.js",
+  "scripts": {
+    "test": "run"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  },
+  "devDependencies": {}
+}
