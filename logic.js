@@ -49,7 +49,13 @@ async function apiPost(path, body) {
 }
 
 // --- Main ---
+
+// ts: ISO timestamp of when this Zap run executed.
+// Useful for debugging race conditions when multiple subtasks
+// are created in quick succession (e.g. from templates) and you
+// need to correlate Zap history with parent task update timing.
 const result = {
+  ts: new Date().toISOString(),
   taskId: inputData.task_id || null,
   parentId: null,
   skipped: null,
